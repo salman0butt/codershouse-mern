@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const history = useHistory();
 
   const startRegister = () => {
-    history.push('/register');
+    history.push('/authenticate');
   };
 
   return (
@@ -28,11 +28,10 @@ const Home: React.FC = () => {
           gradually to make sure nothing breaks
         </p>
         <div>
-          <Button onClick={startRegister} text="Get your username" icon="arrow-forward" />
+          <Button onClick={startRegister} text="Let's Go" icon="arrow-forward" />
         </div>
         <div className={styles.signinWrapper}>
           <span className={styles.hasInvite}>Have an invite text?</span>
-          <Link style={signInLinkStyle} to="/login">Sign in</Link>
         </div>
       </Card>
     </div>
@@ -41,5 +40,7 @@ const Home: React.FC = () => {
 
 export default Home
 
-// start from 1 hour 22 min
-//https://www.youtube.com/watch?v=RWRrK0dMbRQ&list=PLXQpH_kZIxTVz45ifrI_gOqpo7AmdaHRp&index=3
+// start from 1 hour 24 min
+// https://www.youtube.com/watch?v=UZ0jBsHHkgM&list=PLXQpH_kZIxTVz45ifrI_gOqpo7AmdaHRp&index=5
+
+// https://github.com/codersgyan/codershouse-mern
