@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import Email from './Email/Email';
 import Phone from './Phone/Phone';
 import styles from './StepPhoneEmail.module.css';
@@ -20,10 +20,6 @@ const StepPhoneEmail: React.FC<StepPhoneEmailProps> = ({ onNext }) => {
   const [type, setType] = useState('phone');
   const Component = phoneEmailMap[type];
 
-  const handleNext = () => {
-
-  }
-
   return (
     <>
       <div className={styles.cardWrapper}>
@@ -36,7 +32,7 @@ const StepPhoneEmail: React.FC<StepPhoneEmailProps> = ({ onNext }) => {
             <img src="./images/mail-white.png" alt="email"/>
             </button>
           </div>
-          <Component onNext={handleNext} />
+          <Component onNext={onNext} />
         </div>
       </div>
     </>

@@ -4,8 +4,18 @@ import Button from '../../../../components/shared/Button/Button';
 import TextInput from '../../../../components/shared/TextInput/TextInput';
 import styles from '../StepPhoneEmail.module.css';
 
-const Email: React.FC = () => {
+interface EmailProps {
+    onNext: () => void;
+  };
+
+  
+const Email: React.FC<EmailProps> = ({ onNext }) => {
     const [email, setEmail] = useState('');
+
+    const handleNext = () => {
+        onNext();
+      }
+    
     return (
         <Card title="Enter your email id" icon="email-emoji">
             <TextInput
@@ -14,7 +24,7 @@ const Email: React.FC = () => {
             />
             <div>
                 <div className={styles.actionButtonWrap}>
-                    <Button text="Next" icon={''} />
+                    <Button text="Next" icon={''} onClick={handleNext}/>
                 </div>
                 <p className={styles.bottomParagraph}>
                     By entering your number, you’re agreeing to our Terms of

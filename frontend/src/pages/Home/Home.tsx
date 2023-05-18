@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Home.module.css';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Card from '../../components/shared/Card/Card';
 import Button from '../../components/shared/Button/Button';
 
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
 
 export default Home
 
-// start from 1 hour 24 min
+// start from 4 hour 29 min
 // https://www.youtube.com/watch?v=UZ0jBsHHkgM&list=PLXQpH_kZIxTVz45ifrI_gOqpo7AmdaHRp&index=5
 
 // https://github.com/codersgyan/codershouse-mern
