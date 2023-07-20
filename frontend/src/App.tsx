@@ -6,18 +6,17 @@ import Navigation from './components/shared/Navigation/Navigation';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
 import Rooms from './pages/Rooms/Rooms';
-
-const isAuth = false;
-const user = {
-  activated: false
-};
+import { useSelector } from 'react-redux';
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 
 interface GuestRouteProps extends RouteProps {
   children: React.ReactNode;
 }
 
 const App: React.FC = () => {
-  return (
+  const { loading } = useLoadingWithRefresh();
+
+  return loading ? (<div>Loading...</div>) : (
     <BrowserRouter>
       <Navigation />
       <Switch>
@@ -39,7 +38,7 @@ const App: React.FC = () => {
 }
 
 const GuestRoute: React.FC<GuestRouteProps> = ({ children, ...rest }) => {
-
+  const { isAuth } = useSelector((state: any) => state.auth);
   return (
     <Route
       {...rest}
@@ -60,7 +59,7 @@ const GuestRoute: React.FC<GuestRouteProps> = ({ children, ...rest }) => {
 }
 
 const SemiProtectedRoute: React.FC<GuestRouteProps> = ({ children, ...rest }) => {
-
+  const { user, isAuth } = useSelector((state: any) => state.auth);
   return (
     <Route
       {...rest}
@@ -87,7 +86,7 @@ const SemiProtectedRoute: React.FC<GuestRouteProps> = ({ children, ...rest }) =>
 
 
 const ProtectedRoute: React.FC<GuestRouteProps> = ({ children, ...rest }) => {
-
+  const { user, isAuth } = useSelector((state: any) => state.auth);
   return (
     <Route
       {...rest}

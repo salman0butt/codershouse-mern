@@ -24,8 +24,10 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<boolean>) => {
-
+    setAuth: (state, action: PayloadAction<any>) => {
+      const { user } = action.payload;
+      state.user = user;
+      state.isAuth =true
     },
     setOtp: (state, action: PayloadAction<otpInterface>) => {
       const { phone, hash } = action.payload;

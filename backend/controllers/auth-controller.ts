@@ -71,15 +71,79 @@ class AuthController {
         // Token
         const { accessToken, refreshToken } = tokenService.generateTokens({ _id: user._id, activated: false });
 
+        await tokenService.storeRefreshToken(refreshToken, user._id);
+
         res.cookie('refreshtoken', refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        });
+
+        res.cookie('accessToken', accessToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true
         });
 
         const userDto = new UserDto(user);
 
-        res.json({ accessToken, user: userDto });
+        res.json({ user: userDto, auth: true });
 
+    }
+
+    async refresh(req: Request, res: Response): Promise<any> {
+
+        // get refresh token from cookie
+        const { refreshToken: refreshTokenFromCookie } = req.cookies;
+
+        // check if token is valid
+        let userData: User;
+        try {
+            userData = await tokenService.verifyAccessToken(
+                refreshTokenFromCookie
+            );
+        } catch (err) {
+            return res.status(401).json({ message: 'Invalid Token' });
+        }
+
+        //Check if token is in db
+        try {
+            const token = tokenService.findRefreshToken(userData._id, refreshTokenFromCookie);
+            if (!token) {
+                return res.status(401).json({ message: 'Internal error' })
+            }
+        } catch (err) {
+            return res.status(401).json({ message: 'Invalid Token' });
+        }
+
+        // check if valid user
+        const user = await userService.findUser({ _id: userData._id });
+        if (!user) {
+            return res.status(404).json({ message: 'No user' })
+        }
+
+        // Genrate new tokens
+        const { refreshToken, accessToken } = tokenService.generateTokens({ _id: userData._id });
+        
+        // Update refersh token
+        try {
+            tokenService.updateRefreshToken(userData._id, refreshToken);
+        } catch (err) {
+            return res.status(401).json({ message: 'Invalid Token' });
+        }
+
+        // Put it in cookie
+        res.cookie('refreshtoken', refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        });
+
+        res.cookie('accessToken', accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        });
+
+        const userDto = new UserDto(user);
+
+        res.json({ user: userDto, auth: true });
     }
 }
 

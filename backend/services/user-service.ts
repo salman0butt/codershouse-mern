@@ -2,7 +2,7 @@ import { FilterQuery } from 'mongoose';
 import UserModel, { User } from "../models/user-model";
 
 class UserService {
-    async findUser(filter: FilterQuery<User>): Promise<User | null> {
+    async findUser(filter: FilterQuery<User>): Promise<any> {
         const user = await UserModel.findOne(filter);
         return user;
     }
