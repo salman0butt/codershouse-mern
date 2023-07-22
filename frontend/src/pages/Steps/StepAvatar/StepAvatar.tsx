@@ -7,6 +7,8 @@ import { RootState, AppDispatch } from '../../../store'; // Assuming you have a 
 import { setAvatar } from '../../../store/activateSlice';
 import { activate } from '../../../http';
 import { setAuth } from '../../../store/authSlice';
+import Loader from '../../../components/shared/Loader/Loader';
+
 interface StepAvatarProps {
   onNext: () => void;
 };
@@ -15,6 +17,7 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
   const dispatch: AppDispatch = useDispatch();
   const { name, avatar } = useSelector((state: RootState) => state.activate);
   const [image, setImage] = useState<string>('/images/monkey-avatar.png');
+  const [loading, setLoading] = useState<Boolean>(false);
 
   function captureImage(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
@@ -35,7 +38,7 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
         const { data } = await activate({ name, avatar });
         if (data.auth) {
             // if (!unMounted) {
-            //     dispatch(setAuth(data));
+            dispatch(setAuth(data));
             // }
         }
     } catch (err) {
@@ -44,7 +47,7 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
         setLoading(false);
     }
 }
-
+ if(loading) return (<Loader message="Activation in progress..." />);
   return (
     <>
       <Card title={`Okay, ${name}`} icon="monkey-emoji">
@@ -59,7 +62,7 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
           </label>
         </div>
         <div>
-          <Button onClick={onNext} text="Next" />
+          <Button onClick={submit} text="Next" />
         </div>
       </Card>
     </>
@@ -67,7 +70,4 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
 };
 
 export default StepAvatar;
-function setLoading(arg0: boolean) {
-  throw new Error('Function not implemented.');
-}
 

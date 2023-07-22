@@ -13,6 +13,7 @@ const http: AxiosInstance = axios.create({
 export const sendOtp = (data: any): Promise<AxiosResponse<any>> => http.post('/api/send-otp', data);
 export const verifyOtp = (data: any): Promise<AxiosResponse<any>> => http.post('/api/verify-otp', data);
 export const activate = (data: any): Promise<AxiosResponse<any>> => http.post('/api/activate', data);
+export const logout = (): Promise<AxiosResponse<any>> => http.post('/api/logout');
 
 // Interceptors
 http.interceptors.response.use(

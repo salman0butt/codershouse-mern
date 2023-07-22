@@ -14,6 +14,7 @@ const StepOtp: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleNext = async () => {
+    if(!otp || !phone || !hash) return;
     try {
       const { data } = await verifyOtp({ otp, phone, hash });
       dispatch(setAuth(data));

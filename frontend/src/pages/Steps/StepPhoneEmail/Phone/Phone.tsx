@@ -7,7 +7,6 @@ import { sendOtp } from '../../../../http';
 import { useDispatch } from 'react-redux';
 import { setOtp } from '../../../../store/authSlice';
 
-
 interface StepPhoneEmailProps {
   onNext: () => void;
 };
@@ -17,7 +16,7 @@ const Phone: React.FC<StepPhoneEmailProps> = ({ onNext }) => {
   const dispatch = useDispatch();
 
   const handleNext = async () => {
-    // server request
+    if(!phoneNumber) return;
     const { data } = await sendOtp({ phone: phoneNumber });
     dispatch(setOtp({ phone: data.phone, hash: data.hash }));
     onNext();

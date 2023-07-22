@@ -8,6 +8,7 @@ import Activate from './pages/Activate/Activate';
 import Rooms from './pages/Rooms/Rooms';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
+import Loader from './components/shared/Loader/Loader';
 
 interface GuestRouteProps extends RouteProps {
   children: React.ReactNode;
@@ -16,7 +17,9 @@ interface GuestRouteProps extends RouteProps {
 const App: React.FC = () => {
   const { loading } = useLoadingWithRefresh();
 
-  return loading ? (<div>Loading...</div>) : (
+  return loading ? (
+    <Loader message="Loading, please wait.." />
+  ) : (
     <BrowserRouter>
       <Navigation />
       <Switch>

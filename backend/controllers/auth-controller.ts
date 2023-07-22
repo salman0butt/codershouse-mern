@@ -122,7 +122,7 @@ class AuthController {
 
         // Genrate new tokens
         const { refreshToken, accessToken } = tokenService.generateTokens({ _id: userData._id });
-        
+
         // Update refersh token
         try {
             tokenService.updateRefreshToken(userData._id, refreshToken);
@@ -144,6 +144,16 @@ class AuthController {
         const userDto = new UserDto(user);
 
         res.json({ user: userDto, auth: true });
+    }
+
+    async logout(req: Request, res: Response): Promise<any> {
+        const { refreshToken } = req.cookies;
+        // delete refresh token from db
+        await tokenService.removeToken(refreshToken);
+        // delete cookies
+        res.clearCookie('refreshToken');
+        res.clearCookie('accessToken');
+        res.json({ user: null, auth: false });
     }
 }
 
