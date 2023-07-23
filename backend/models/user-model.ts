@@ -6,15 +6,21 @@ export interface User extends Document {
     avatar?: string;
     activated?: boolean;
     createdAt: string;
-  }
+}
 
 const userSchema: Schema = new Schema({
     phone: { type: String, required: true },
     name: { type: String, required: false },
-    avatar: { type: String, required: false },
-    activated: {type: Boolean, required: false, default: false}
-},{
-    timestamps: true
+    avatar: { type: String, required: false, get: (avatar: string) => {
+        if(avatar) {
+            `${process.env.BASE_URL}${avatar}`;
+        }
+        return avatar;
+    } },
+    activated: { type: Boolean, required: false, default: false }
+}, {
+    timestamps: true,
+    toJSON: { getters: true }
 });
 
 

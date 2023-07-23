@@ -3,6 +3,7 @@ import styles from './TextInput.module.css';
 
 interface TextInputProps {
     value: string;
+    fullwidth?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

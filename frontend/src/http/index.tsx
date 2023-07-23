@@ -14,6 +14,8 @@ export const sendOtp = (data: any): Promise<AxiosResponse<any>> => http.post('/a
 export const verifyOtp = (data: any): Promise<AxiosResponse<any>> => http.post('/api/verify-otp', data);
 export const activate = (data: any): Promise<AxiosResponse<any>> => http.post('/api/activate', data);
 export const logout = (): Promise<AxiosResponse<any>> => http.post('/api/logout');
+export const createRoom = (data: any): Promise<AxiosResponse<any>> => http.post('/api/rooms', data);
+export const getAllRooms = (): Promise<AxiosResponse<any>> => http.get('/api/rooms');
 
 // Interceptors
 http.interceptors.response.use(

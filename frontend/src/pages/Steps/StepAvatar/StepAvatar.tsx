@@ -18,6 +18,7 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
   const { name, avatar } = useSelector((state: RootState) => state.activate);
   const [image, setImage] = useState<string>('/images/monkey-avatar.png');
   const [loading, setLoading] = useState<Boolean>(false);
+  const [unMounted, setUnMounted] = useState<Boolean>(false);
 
   function captureImage(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
@@ -37,9 +38,9 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
     try {
         const { data } = await activate({ name, avatar });
         if (data.auth) {
-            // if (!unMounted) {
-            dispatch(setAuth(data));
-            // }
+            if (!unMounted) {
+              dispatch(setAuth(data));
+            }
         }
     } catch (err) {
         console.log(err);
@@ -47,6 +48,15 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
         setLoading(false);
     }
 }
+
+useEffect(() => {
+  return () => {
+    setUnMounted(true);
+  }
+}, [])
+
+
+
  if(loading) return (<Loader message="Activation in progress..." />);
   return (
     <>

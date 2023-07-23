@@ -9,6 +9,7 @@ import Rooms from './pages/Rooms/Rooms';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 import Loader from './components/shared/Loader/Loader';
+import Room from './components/Room/Room';
 
 interface GuestRouteProps extends RouteProps {
   children: React.ReactNode;
@@ -34,6 +35,9 @@ const App: React.FC = () => {
         </SemiProtectedRoute>
         <ProtectedRoute path="/rooms">
           <Rooms />
+        </ProtectedRoute>
+        <ProtectedRoute path="/rooms/:id">
+          <Room />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
