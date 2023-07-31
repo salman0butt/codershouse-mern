@@ -36,7 +36,7 @@ const App: React.FC = () => {
         <ProtectedRoute path="/rooms">
           <Rooms />
         </ProtectedRoute>
-        <ProtectedRoute path="/rooms/:id">
+        <ProtectedRoute path="/room/:id">
           <Room />
         </ProtectedRoute>
       </Switch>

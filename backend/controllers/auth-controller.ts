@@ -90,20 +90,17 @@ class AuthController {
     }
 
     async refresh(req: Request, res: Response): Promise<any> {
-
         // get refresh token from cookie
-        const { refreshToken: refreshTokenFromCookie } = req.cookies;
-
+        const { refreshtoken: refreshTokenFromCookie } = req.cookies;
         // check if token is valid
         let userData: User;
         try {
-            userData = await tokenService.verifyAccessToken(
+            userData = await tokenService.verifyRefreshToken(
                 refreshTokenFromCookie
             );
         } catch (err) {
             return res.status(401).json({ message: 'Invalid Token' });
         }
-
         //Check if token is in db
         try {
             const token = tokenService.findRefreshToken(userData._id, refreshTokenFromCookie);

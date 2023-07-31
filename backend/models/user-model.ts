@@ -13,7 +13,7 @@ const userSchema: Schema = new Schema({
     name: { type: String, required: false },
     avatar: { type: String, required: false, get: (avatar: string) => {
         if(avatar) {
-            `${process.env.BASE_URL}${avatar}`;
+            return `${process.env.BASE_URL}${avatar}`;
         }
         return avatar;
     } },

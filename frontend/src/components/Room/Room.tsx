@@ -1,45 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-// import { useWebRTC } from '../../hooks/useWebRTC';
+import { useWebRTC } from '../../hooks/useWebRTC';
 import { useParams, useHistory } from 'react-router-dom';
-// import { getRoom } from '../../http';
+import { getRoom } from '../../http';
 
 import styles from './Room.module.css';
 
 const Room = () => {
-    // const user = useSelector((state) => state.auth.user);
-    // const { id: roomId } = useParams();
-    // const [room, setRoom] = useState(null);
+    const user = useSelector((state: any) => state.auth.user);
+    const { id: roomId } = useParams<any>();
+    const [room, setRoom] = useState<any>(null);
 
-    // const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
+    const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
 
-    // const history = useHistory();
+    const history = useHistory();
 
-    // const [isMuted, setMuted] = useState(true);
+    const [isMuted, setMuted] = useState(true);
 
-    // useEffect(() => {
-    //     const fetchRoom = async () => {
-    //         const { data } = await getRoom(roomId);
-    //         setRoom((prev) => data);
-    //     };
+    useEffect(() => {
+        const fetchRoom = async () => {
+            const { data } = await getRoom(roomId);
+            console.log(data);
+            setRoom((prev: any) => data);
+        };
 
-    //     fetchRoom();
-    // }, [roomId]);
+        fetchRoom();
+    }, [roomId]);
 
-    // useEffect(() => {
-    //     handleMute(isMuted, user.id);
-    // }, [isMuted]);
+    useEffect(() => {
+        handleMute(isMuted, user.id);
+    }, [isMuted]);
 
-    // const handManualLeave = () => {
-    //     history.push('/rooms');
-    // };
+    const handManualLeave = () => {
+        history.push('/rooms');
+    };
 
-    // const handleMuteClick = (clientId) => {
-    //     if (clientId !== user.id) {
-    //         return;
-    //     }
-    //     setMuted((prev) => !prev);
-    // };
+    const handleMuteClick = (clientId: any) => {
+        if (clientId !== user.id) {
+            return;
+        }
+        setMuted((prev) => !prev);
+    };
 
     return (
         <div>
@@ -51,7 +52,7 @@ const Room = () => {
             </div>
             <div className={styles.clientsWrap}>
                 <div className={styles.header}>
-                    {room && <h2 className={styles.topic}>{room.topic}</h2>}
+                    {room && <h2 className={styles.topic}>{room?.topic}</h2>}
                     <div className={styles.actions}>
                         <button className={styles.actionBtn}>
                             <img src="/images/palm.png" alt="palm-icon" />
@@ -66,7 +67,7 @@ const Room = () => {
                     </div>
                 </div>
                 <div className={styles.clientsList}>
-                    {clients.map((client) => {
+                    {clients.map((client: any) => {
                         return (
                             <div className={styles.client} key={client.id}>
                                 <div className={styles.userHead}>

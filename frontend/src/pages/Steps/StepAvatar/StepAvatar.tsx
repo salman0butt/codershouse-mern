@@ -38,9 +38,9 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
     try {
         const { data } = await activate({ name, avatar });
         if (data.auth) {
-            if (!unMounted) {
+            // if (!unMounted) {
               dispatch(setAuth(data));
-            }
+            // }
         }
     } catch (err) {
         console.log(err);
@@ -49,13 +49,11 @@ const StepAvatar: React.FC<StepAvatarProps> = ({ onNext }) => {
     }
 }
 
-useEffect(() => {
-  return () => {
-    setUnMounted(true);
-  }
-}, [])
-
-
+  // useEffect(() => {
+  //   return () => {
+  //     setUnMounted(true);
+  //   }
+  // }, [])
 
  if(loading) return (<Loader message="Activation in progress..." />);
   return (

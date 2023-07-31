@@ -19,6 +19,7 @@
     "jimp": "^0.22.8",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.2",
+    "socket.io": "^4.7.1",
     "ts-node": "^10.9.1",
     "twilio": "^4.13.0",
     "typescript": "^5.0.2"

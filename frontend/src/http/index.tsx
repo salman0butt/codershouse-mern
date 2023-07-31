@@ -16,6 +16,7 @@ export const activate = (data: any): Promise<AxiosResponse<any>> => http.post('/
 export const logout = (): Promise<AxiosResponse<any>> => http.post('/api/logout');
 export const createRoom = (data: any): Promise<AxiosResponse<any>> => http.post('/api/rooms', data);
 export const getAllRooms = (): Promise<AxiosResponse<any>> => http.get('/api/rooms');
+export const getRoom = (roomId: any): Promise<AxiosResponse<any>> => http.get(`/api/rooms/${roomId}`);
 
 // Interceptors
 http.interceptors.response.use(
