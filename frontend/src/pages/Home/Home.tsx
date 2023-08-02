@@ -39,3 +39,8 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+// start from startt
+// https://www.youtube.com/watch?v=hpxZTRkrcg8&list=PLXQpH_kZIxTVz45ifrI_gOqpo7AmdaHRp&index=14
+
+// https://github.com/codersgyan/codershouse-mern
